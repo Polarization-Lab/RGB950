@@ -1,0 +1,9 @@
+[ScanInfo]
+Scan Type="Tilt"
+Number of tilt angles="30"
+Number of Rotation angles="1"
+Number of wavelengths="1"
+Time and Date="7/12/2021 2:51:45 PM"
+Version Number=""
+Registration Array.<size(s)>="0"
+Comments=""
