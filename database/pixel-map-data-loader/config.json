@@ -1,0 +1,7 @@
+{
+    "dataDirectory" : "/Users/carolinehumphreys/Projects/Polarization-Lab/RGB950/database/pixel-map-data-loader/data",
+    "hostName" : "localhost",
+    "userName" : "caroline", 
+    "userPassword": "p0larizatioN!",
+    "dbName": "test"
+}
