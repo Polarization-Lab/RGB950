@@ -1,0 +1,15 @@
+-- create scattering_geometry_pixel_data_map
+
+CREATE TABLE `scattering_geometry_pixel_map` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pixel_x` int DEFAULT NULL,
+  `pixel_y` int DEFAULT NULL,
+  `theta_h` decimal(11,10) DEFAULT NULL,
+  `phi_h` decimal(11,10) DEFAULT NULL,
+  `theta_d` decimal(11,10) DEFAULT NULL,
+  `phi_d` decimal(11,10) DEFAULT NULL,
+  `AOI` int DEFAULT NULL,
+  `AOC` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sampleIndex` (`pixel_x`,`pixel_y`,`AOI`,`AOC`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=10815324 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

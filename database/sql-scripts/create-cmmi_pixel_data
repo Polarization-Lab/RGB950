@@ -1,0 +1,26 @@
+-- create cmmi_pixel_data table
+
+CREATE TABLE `cmmi_pixel_data` (
+  `sample_no` int NOT NULL,
+  `pixel_x` int DEFAULT NULL,
+  `pixel_y` int DEFAULT NULL,
+  `m00` decimal(10,10) DEFAULT NULL,
+  `m10` decimal(10,10) DEFAULT NULL,
+  `m20` decimal(10,10) DEFAULT NULL,
+  `m30` decimal(10,10) DEFAULT NULL,
+  `m01` decimal(10,10) DEFAULT NULL,
+  `m02` decimal(10,10) DEFAULT NULL,
+  `m03` decimal(10,10) DEFAULT NULL,
+  `m11` decimal(10,10) DEFAULT NULL,
+  `m12` decimal(10,10) DEFAULT NULL,
+  `m13` decimal(10,10) DEFAULT NULL,
+  `m21` decimal(10,10) DEFAULT NULL,
+  `m22` decimal(10,10) DEFAULT NULL,
+  `m23` decimal(10,10) DEFAULT NULL,
+  `m31` decimal(10,10) DEFAULT NULL,
+  `m32` decimal(10,10) DEFAULT NULL,
+  `m33` decimal(10,10) DEFAULT NULL,
+  `AOI` int DEFAULT NULL,
+  `AOC` int DEFAULT NULL,
+  KEY `sampleIndex` (`pixel_x`,`pixel_y`,`AOI`,`AOC`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

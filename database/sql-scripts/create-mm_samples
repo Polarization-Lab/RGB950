@@ -1,0 +1,17 @@
+-- create mm_samples table
+
+CREATE TABLE `mm_samples` (
+  `mm_sample_id` int NOT NULL AUTO_INCREMENT,
+  `sample_no` int DEFAULT NULL,
+  `date` int DEFAULT NULL,
+  `wavelength` int DEFAULT NULL,
+  `exposure` varchar(45) DEFAULT NULL,
+  `f_no` varchar(10) DEFAULT NULL,
+  `AOI` int DEFAULT NULL,
+  `AOC` varchar(45) DEFAULT NULL,
+  `AOS` int DEFAULT NULL,
+  `MMimage` varchar(1000) DEFAULT NULL,
+  `cmmiFilePath` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`mm_sample_id`),
+  KEY `fk_material_samples` (`sample_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=743 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
