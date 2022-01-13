@@ -1,4 +1,4 @@
--- create cmmi_pixel_data table
+-- create cmmi pixel data table
 
 CREATE TABLE `cmmi_pixel_data` (
   `sample_no` int NOT NULL,

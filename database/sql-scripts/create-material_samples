@@ -1,4 +1,4 @@
---create material_samples table
+--create material samples table
 
 CREATE TABLE `material_samples` (
   `sample_no` int NOT NULL,

@@ -1,4 +1,4 @@
--- create scattering_geometry_pixel_data_map
+-- create scattering geometry pixel data map
 
 CREATE TABLE `scattering_geometry_pixel_map` (
   `id` int NOT NULL AUTO_INCREMENT,

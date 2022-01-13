@@ -1,4 +1,4 @@
--- create mm_samples table
+-- create mm samples table
 
 CREATE TABLE `mm_samples` (
   `mm_sample_id` int NOT NULL AUTO_INCREMENT,
