@@ -19,8 +19,7 @@ To create the database execute the SQL scripts in the following order:
 
 Execute the pixel map data loader against the target database.
 
-TODO: finish XXXXXX
-This will load the XXXXXX table.  
+This will load the scattering_geometry_pixel_map table.  
 
 Modify the JSON configuration file with the target database values.
 Modify the JSON configuration file with the path to the samples.
@@ -36,9 +35,9 @@ pixel-map-data-loader/config.json
 }
 ```
 
-Execute the pixel-map-data-loader
+Execute the pixel-map-data-loader (must be in pixel-map-data-loader directory)
 ```
-TODO: figure out 
+python3 main.py
 ```
 
 ## Execute Data Loader
@@ -48,7 +47,7 @@ Execute the data loader to load all of the samples into the database.  This will
 Modify the JSON configuration file with the target database values.
 Modify the JSON configuration file with the path to the samples.
 
-pixel-map-data-loader/config.json
+data-loader/config.json
 ```
 {
     "dataDirectory" : "%DataDirectory%",
@@ -60,12 +59,13 @@ pixel-map-data-loader/config.json
 ```
 
 This will load the following tables:
+mm_samples
+material_samples
+cmmi_pixel_data
 
-TODO: list the tables.
-
-
+Execute the data-loader (must be in data-loader directory)
 ```
-TODO: figure out 
+python3 main.py
 ```
 
 ## Execute Sample Queries
