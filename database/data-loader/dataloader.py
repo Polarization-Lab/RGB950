@@ -202,8 +202,8 @@ def loadCMMIFileData(mm, mmSample, dbConnection):
             m32 = image14[x][y]
             m33 = image15[x][y]
 
-            insertStmt = """INSERT INTO cmmi_pixel_data (sample_no,pixel_x,pixel_y,m00,m10,m20,m30,m01,m11,m21,m31,m02,m12,m22,m32,m03,m13,m23,m33,AOI,AOC) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-            data = (mmSample.sampleNo, x, y, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33, mmSample.aoi, mmSample.aoc)
+            insertStmt = """INSERT INTO cmmi_pixel_data (sample_no,pixel_x,pixel_y,m00,m10,m20,m30,m01,m11,m21,m31,m02,m12,m22,m32,m03,m13,m23,m33,AOI,AOC,wavelength) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+            data = (mmSample.sampleNo, x, y, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33, mmSample.aoi, mmSample.aoc,mmSample.wavelength)
             cursor = dbConnection.cursor()
             try:
                 cursor.execute(insertStmt,data)
