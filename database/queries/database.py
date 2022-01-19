@@ -1,3 +1,5 @@
+# functions used for querying
+
 import mysql.connector
 from mysql.connector import Error
 

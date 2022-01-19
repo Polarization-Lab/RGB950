@@ -75,7 +75,7 @@ To test the database connect to the database with MySql Workbench and execute qu
 Modify the JSON launch file with the approiate query parameters.
 Modify the JSON configuration file with the target database values.
 
-Execute the desired query python file (must be in the queries directory)
+Execute the desired query python file (must be in the queries directory) via the command line
 ```
 python3 query1.py
 ```

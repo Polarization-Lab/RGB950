@@ -1,5 +1,4 @@
 # Query the database and have result exported as CSV
-# want to query by input, output angles, material, wavelength
 
 import os
 import json
