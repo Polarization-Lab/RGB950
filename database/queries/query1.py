@@ -59,10 +59,16 @@ if __name__ == "__main__":
 # Query with all inner joins
 # SELECT m00, m01, m02, m03, m10, m20, m30, m11, m12, m13, m21, m22, m23, m31, m32, m33
 # FROM cmmi_pixel_data as cpd
-# INNER JOIN mm_samples as mm ON cpd.sample_no = mm.sample_no AND cpd.AOI = mm.AOI AND cpd.AOC = mm.AOC
+# INNER JOIN mm_samples as mm ON cpd.sample_no = mm.sample_no 
+# AND cpd.AOI = mm.AOI 
+# AND cpd.AOC = mm.AOC
+# AND cpd.wavelength = mm.wavelength
 # INNER JOIN material_samples as m ON m.sample_no = cpd.sample_no
-# INNER JOIN scattering_geometry_pixel_map as sgpm ON cpd.pixel_x = sgpm.pixel_x AND cpd.pixel_y = sgpm.pixel_y AND cpd.AOI = sgpm.AOI AND cpd.AOC = sgpm.AOC
-# WHERE wavelength = %s AND exposure = %s AND sgpm.AOI = %s AND sgpm.AOC = %s;
+# INNER JOIN scattering_geometry_pixel_map as sgpm ON cpd.pixel_x = sgpm.pixel_x 
+# AND cpd.pixel_y = sgpm.pixel_y 
+# AND cpd.AOI = sgpm.AOI 
+# AND cpd.AOC = sgpm.AOC
+# WHERE material_name = %s AND cpd.AOI = %s AND cpd.AOC = %s AND cpd.wavelength = %s;
 
 # extra SQL query statements
 # SELECT mm_samples.date, mm_samples.exposure
