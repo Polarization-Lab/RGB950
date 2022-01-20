@@ -42,12 +42,12 @@ python3 main.py
 
 ## Execute Data Loader
 
-Execute the data loader to load all of the samples into the database.  This will take a very long time.
+You can load either one sample or all the samples. Either way this process will take a very long time.
 
 Modify the JSON configuration file with the target database values.
 Modify the JSON configuration file with the path to the samples.
 
-data-loader/config.json
+data-loader/load-all-samples/config.json or data-loader/load-one-sample/config.json
 ```
 {
     "dataDirectory" : "%DataDirectory%",
@@ -63,7 +63,7 @@ mm_samples
 material_samples
 cmmi_pixel_data
 
-Execute the data-loader (must be in data-loader directory)
+Execute the data-loader (must be in either the load-all-samples or load-one-sample directory)
 ```
 python3 main.py
 ```
