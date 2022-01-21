@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["LEATHER","25","90"]
+            "args": ["LEATHER","10","30"]
         }
     ]
 }

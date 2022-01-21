@@ -1,4 +1,5 @@
 # Query the database and have result exported as CSV
+# Querying  by phi_d, theta_h, theta_d, material, wavelength
 
 import os
 import json

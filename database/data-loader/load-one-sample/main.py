@@ -20,12 +20,13 @@ def main():
     config.dbName = jsonData["dbName"]
 
     # loop over all of the sample folders in the input directory
-    for sampleDirectoryName in os.listdir(config.rootSampleDirectory):
-        # build the path to the sample directory 
-        sampleDirectoryPath = os.path.join(config.rootSampleDirectory, sampleDirectoryName)
+    #for sampleDirectoryName in os.listdir(config.rootSampleDirectory):
+    
+    # build the path to the sample directory 
+    sampleDirectoryPath = os.path.join(config.rootSampleDirectory, sampleDirectoryName)
 
-        # load the sample
-        loadSample(sampleDirectoryPath, config)
+    # load the sample
+    loadSample(sampleDirectoryPath, config)
           
 if __name__ == "__main__":
     main()
