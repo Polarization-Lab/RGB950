@@ -92,8 +92,8 @@ def createDBConnection(hostName, userName, userPassword, dbName):
     return connection
 
 def insertMMSample(dbConnection, mmSample):
-    insertStmt = """INSERT INTO mm_samples (sample_no,date,wavelength,exposure,f_no,AOI,AOC,AOS) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"""
-    data = (mmSample.sampleNo, mmSample.date, mmSample.wavelength, mmSample.exposure, mmSample.fNo, mmSample.aoi, mmSample.aoc, mmSample.aos)
+    insertStmt = """INSERT INTO mm_samples (sample_no,date,wavelength,exposure,f_no,AOI,AOC,AOS,MMimage,cmmiFilePath) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    data = (mmSample.sampleNo, mmSample.date, mmSample.wavelength, mmSample.exposure, mmSample.fNo, mmSample.aoi, mmSample.aoc, mmSample.aos,mmSample.MMimage,mmSample.cmmiFilePath)
     cursor = dbConnection.cursor()
     try:
         cursor.execute(insertStmt, data)
@@ -102,6 +102,7 @@ def insertMMSample(dbConnection, mmSample):
     except Error as err:
         print(f"Error: '{err}'")
 
+# TODO: change to add the other samples, or create new excel sheet, or make excel sheet name a varibale and put into config
 def parseExcelFile(config):
     # build the file name
     excelFileName = 'RGB950 2021 Sample List.xlsx'
@@ -216,6 +217,7 @@ def loadCMMIFiles(cmmiDirectoryPath, dbConnection):
     # get all of the files in the cmmi directory
     for subdirs, dirs, files in os.walk(cmmiDirectoryPath):
         # loop over all of the files
+        # TODO : pull out rgb image file path
         for fileName in files:
             # only process cmmi files
             if (fileName.__contains__(".cmmi")):
@@ -231,6 +233,8 @@ def loadCMMIFiles(cmmiDirectoryPath, dbConnection):
                 mmSample.aoc = fileName.rsplit("_", 7)[6]
                 mmSample.aoc = int(mmSample.aoc.rsplit(".",2)[0])
                 mmSample.aos = mmSample.aoc - mmSample.aoi
+                mmSample.MMimage = cmmiDirectoryPath
+                mmSample.cmmiFilePath = cmmiDirectoryPath
 
                 # insert the sample into the database
                 insertMMSample(dbConnection, mmSample)
@@ -242,7 +246,8 @@ def loadCMMIFiles(cmmiDirectoryPath, dbConnection):
                 mm = readCMMI(cmmiFilePath)
 
                 # load the cmmi file
-                loadCMMIFileData(mm, mmSample, dbConnection)
+                # table no longer in use
+                # loadCMMIFileData(mm, mmSample, dbConnection)
 
 def loadSample(sampleDirectoryPath, config):
     # determine the sample number from the path

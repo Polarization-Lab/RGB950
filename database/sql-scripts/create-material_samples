@@ -1,7 +1,7 @@
 --create material samples table
 
 CREATE TABLE `material_samples` (
-  `sample_no` int NOT NULL,
+  `sample_no` varchar(15) NOT NULL,
   `sample_name` varchar(45) DEFAULT NULL,
   `material_name` varchar(45) DEFAULT NULL,
   `no_samples` int DEFAULT NULL,

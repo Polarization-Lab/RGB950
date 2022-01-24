@@ -1,9 +1,10 @@
 import os
+import sys
 import json
 from dataloader import loadSample
 from dataloader import Config
 
-def main():
+def main(args):
     # load the configuration
     scriptDir = os.path.dirname(__file__)
     configPath = os.path.join(scriptDir, 'config.json')
@@ -19,8 +20,8 @@ def main():
     config.userPassword = jsonData["userPassword"]
     config.dbName = jsonData["dbName"]
 
-    # loop over all of the sample folders in the input directory
-    #for sampleDirectoryName in os.listdir(config.rootSampleDirectory):
+    # pull the sample directory name from the command line arguments, arguement #1
+    sampleDirectoryName = args[1]
     
     # build the path to the sample directory 
     sampleDirectoryPath = os.path.join(config.rootSampleDirectory, sampleDirectoryName)
@@ -29,4 +30,4 @@ def main():
     loadSample(sampleDirectoryPath, config)
           
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
