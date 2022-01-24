@@ -262,7 +262,7 @@ def loadSample(sampleDirectoryPath, config):
 
     # find sample data in data rows
     for mmSampleSummaryData in mmSampleSummaryDataRows:
-        if (mmSampleSummaryData.sampleNo == int(sampleNo)):
+        if (mmSampleSummaryData.sampleNo == sampleNo):
             break
 
     # determine the sample description

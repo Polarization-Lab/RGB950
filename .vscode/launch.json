@@ -12,6 +12,14 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": ["-1","1","1","2","1","2","10","30","451","LEATHER"]
+        },
+        {
+            "name": "Python: single sample",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["pink"]
         }
     ]
 }
