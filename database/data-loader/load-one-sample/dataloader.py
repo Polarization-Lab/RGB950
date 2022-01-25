@@ -122,7 +122,7 @@ def parseExcelFile(config):
         print(c.value)
         if (counter >= 2): 
             mmSampleSummaryData = MMSampleSummaryData()
-            mmSampleSummaryData.sampleNo = int(c.value)
+            mmSampleSummaryData.sampleNo = c.value
             mmSampleSummaryDataRows.append(mmSampleSummaryData)
         counter = counter + 1
 
