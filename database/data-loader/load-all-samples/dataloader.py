@@ -121,7 +121,7 @@ def parseExcelFile(config):
         print(c.value)
         if (counter >= 2): 
             mmSampleSummaryData = MMSampleSummaryData()
-            mmSampleSummaryData.sampleNo = int(c.value)
+            mmSampleSummaryData.sampleNo = c.value
             mmSampleSummaryDataRows.append(mmSampleSummaryData)
         counter = counter + 1
 
@@ -257,7 +257,7 @@ def loadSample(sampleDirectoryPath, config):
 
     # find sample data in data rows
     for mmSampleSummaryData in mmSampleSummaryDataRows:
-        if (mmSampleSummaryData.sampleNo == int(sampleNo)):
+        if (mmSampleSummaryData.sampleNo == sampleNo):
             break
 
     # determine the sample description
