@@ -1,0 +1,10 @@
+# create mitsuba_map table
+
+CREATE TABLE `mitsuba_map` (
+  `sample_id` int NOT NULL,
+  `pixel_x` int DEFAULT NULL,
+  `pixel_y` int DEFAULT NULL,
+  `AOI` int DEFAULT NULL,
+  `AOC` int DEFAULT NULL,
+  PRIMARY KEY (`sample_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
