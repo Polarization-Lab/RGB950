@@ -1,3 +1,4 @@
+# load the table that holds degree increments for all values/combinations of theta_h...
 import os
 import sys
 import json
@@ -6,16 +7,6 @@ from mysql.connector import Error
 from dataloader import loadSample
 from dataloader import Config
 from dataloader import createDBConnection
-
-def read_query(connection, query,data):
-    cursor = connection.cursor()
-    result = None
-    try:
-        cursor.execute(query,data)
-        result = cursor.fetchall()
-        return result
-    except Error as err:
-        print(f"Error: '{err}'")
 
 def main():
     # load the configuration
@@ -36,30 +27,26 @@ def main():
     # create database connection
     dbConnection = createDBConnection(config.hostName, config.userName, config.userPassword, config.dbName)
 
-    # looping over degree increment table
+    # TODO: add loops here to loop through old table
     for phi_d in range(1,362):
         for theta_d in range(1,92):
             for theta_h in range(1,92):
-                # convert to radians
                 phi_d = math.radians(phi_d)
                 theta_d = math.radians(theta_d)
                 theta_h = math.radians(theta_h)
-                
-                queryStatement = """SELECT pixel_x, pixel_y, AOI, AOC FROM scattering_geometry_pixel_map AS sgpm WHERE sgpm.phi_d = %s AND sgpm.theta_d = %s AND sgpm.theta_h = %s"""
+                insertStmt = """INSERT INTO degree_increments_map (phi_d,theta_d,theta_h) VALUES (%s,%s,%s)"""
                 data = (phi_d,theta_d,theta_h)
-                result = read_query(dbConnection,queryStatement,data)
-                
-                # TODO: add to new table OR create "closest" algorithm here
-                if len(result) == 0:
-                    # perform closest algorithm
-                    cloest = 0
-
-                # convert back to degrees for proper iterating
+                cursor = dbConnection.cursor()
+                try:
+                    cursor.execute(insertStmt, data)
+                    dbConnection.commit()
+                    print("Query successful")
+                except Error as err:
+                    print(f"Error: '{err}'")
                 phi_d = math.degrees(phi_d)
                 theta_d = math.degrees(theta_d)
                 theta_h = math.degrees(theta_h)
-            
 
-          
+
 if __name__ == "__main__":
     main()
