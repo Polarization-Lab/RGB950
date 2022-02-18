@@ -19,6 +19,8 @@ class Config:
     userName  = ""
     userPassword= ""
     dbName = ""
+    sampleNo = ""
+    wavelength = ""
 
 class MMSampleSummaryData:
     sampleNo = 0
@@ -40,6 +42,8 @@ class MMSample:
     aos = 0
     mmImage = ""
     cmmiFilePath = ""
+
+
 
 def parseSampleDescriptionFromWordDoc(sampleDirectoryPath, sampleNumber):
     # look for the word document in the folder and parse out the required information

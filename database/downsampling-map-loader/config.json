@@ -3,5 +3,7 @@
     "hostName" : "localhost",
     "userName" : "caroline", 
     "userPassword": "p0larizatioN!",
-    "dbName": "test"
+    "dbName": "test",
+    "sampleNo": "001",
+    "wavelength": "451"
 }

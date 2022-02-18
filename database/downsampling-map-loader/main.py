@@ -37,9 +37,10 @@ def main():
     dbConnection = createDBConnection(config.hostName, config.userName, config.userPassword, config.dbName)
 
     # looping over degree increment table
+    theta_h = 1
     for phi_d in range(1,362):
         for theta_d in range(1,92):
-            for theta_h in range(1,92):
+            while(theta_h < 92):
                 # convert to radians
                 phi_d = math.radians(phi_d)
                 theta_d = math.radians(theta_d)
@@ -52,12 +53,19 @@ def main():
                 # TODO: add to new table OR create "closest" algorithm here
                 if len(result) == 0:
                     # perform closest algorithm
-                    cloest = 0
+                    # minimize the distance
+                    closest = 0
+                else:
+                    # insert into table
+                    insertStatement = """INSERT pixel_x, pixel_y, AOI, AOC INTO mitsuba_map VALUE(%s,%s,%s,%s)"""
+                    values = (pixel_x,pixel_y,AOI,AOC)
+                    read_query(dbConnection, insertStatement,values)
 
                 # convert back to degrees for proper iterating
                 phi_d = math.degrees(phi_d)
                 theta_d = math.degrees(theta_d)
                 theta_h = math.degrees(theta_h)
+                theta_h = 90*(theta_h/91)^2
             
 
           
