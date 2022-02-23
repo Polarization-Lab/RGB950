@@ -162,3 +162,9 @@ if __name__ == '__main__':
 
     # read example
     read_tensor('./6_gold_inpainted.pbsdf')
+
+    result1 = read_tensor('/Users/carolinehumphreys/Downloads/6_gold_mitsuba/6_gold_raw.pbsdf')
+    np.shape(result1['M'])
+    result1['M'][42,10,42,0,:,:]
+    result1['M'] = 1
+    write_tensor('Temp.pbsdf',**result1)
