@@ -63,16 +63,17 @@ config.wavelength = jsonData["wavelength"]
 # made connection to the database
 dbConnection = createDBConnection(config.hostName, config.userName, config.userPassword, config.dbName)
 
+# sample pbsdf to be changed
 result1 = read_tensor('/Users/carolinehumphreys/Downloads/6_gold_mitsuba/6_gold_raw.pbsdf')
 
 # looping over degree increments for each angle
 # at each degree increment the bins are created and the MM values averaged for each bin
-for phi_d in range(1,362):
-    for theta_d in range(1,92):
+for phi_d in range(0,361):
+    for theta_d in range(0,91):
         # theta_h = 0
         previous_theta_h = 0
         # next_theta_h = 90*math.pow(theta_h/91,2)
-        for theta_h in range(1,91):
+        for theta_h in range(0,91):
         # while(theta_h < 92):
 
             # determine the previous theta_h
@@ -92,14 +93,23 @@ for phi_d in range(1,362):
             next_theta_h_radians = math.radians(next_theta_h)
 
             # define bins
+            # bin around phi_d is +- 0.5 degrees
             lower_phi_d = phi_d_radians - math.radians(0.5)
             upper_phi_d = phi_d_radians + math.radians(0.5)
+            # bin around theta_d is +- 0.5 degrees
             lower_theta_d = theta_d_radians - math.radians(0.5)
             upper_theta_d = theta_d_radians + math.radians(0.5)
+            # bin around theta_h is defined as midpoint between previous and next values and current value
             lower_theta_h = (theta_h_radians - previous_theta_h_radians)/2
             upper_theta_h = (next_theta_h_radians - theta_h_radians)/2
 
             # find pixels for each bin
+            print('phi_d')
+            print(phi_d)
+            print('theta_d')
+            print(theta_d)
+            print('theta_h')
+            print(theta_h)
             queryStatement = """SELECT pixel_x, pixel_y, AOI, AOC FROM scattering_geometry_pixel_map AS sgpm WHERE phi_d BETWEEN %s AND %s
                 AND theta_h BETWEEN %s AND %s
                 AND theta_d BETWEEN %s AND %s"""
@@ -108,10 +118,12 @@ for phi_d in range(1,362):
             # if we dont have data that matches the bin
             if len(result)==0:
                 # put 0 in M in dictionary
-                result1['M'][phi_d,theta_d,theta_h,:,:,:]=0
+                print('No data found')
+                result1['M'][phi_d,theta_d,theta_h,:,:,:] = np.nan
 
             else: 
                 mmData = MMData()
+                print('Found Data')
 
                 # TODO: make a lookup table that holds which pixels and files correspond to which bins
                 # another table/file somewhere
@@ -123,6 +135,7 @@ for phi_d in range(1,362):
                     AOI = row[2]
                     AOC = row[3]
 
+                    # define the path of sample for which the pbsdf is to be created
                     samplePath = "/Users/carolinehumphreys/Projects/Polarization-Lab/RGB950/database/data-loader/test-data/2021/001"
 
                     # loop over over the wavelength folders
@@ -145,6 +158,7 @@ for phi_d in range(1,362):
                                         filePattern = AOI + "_" + AOC + ".cmmi"
                                         if (fileName.__contains__(filePattern)):
                                             mm = readCMMI(fileName)
+                                            # obtaining Mueller matrix data
                                             image0 = mm[0]
                                             image1 = mm[1]
                                             image2 = mm[2]
@@ -162,6 +176,7 @@ for phi_d in range(1,362):
                                             image14 = mm[14]
                                             image15 = mm[15]
 
+                                            # adding Mueller Matrix data to class
                                             mmData.m00.append(image0[pixel_x][pixel_y])
                                             mmData.m01.append(image1[pixel_x][pixel_y])
                                             mmData.m02.append(image2[pixel_x][pixel_y])
@@ -181,24 +196,24 @@ for phi_d in range(1,362):
 
                             # average MM data for all collected pixel data
                             # TODO: make sure 0s arent getting averaged
-                            m00 = average(mmData.m00)
-                            m01 = average(mmData.m01)
-                            m02 = average(mmData.m02)
-                            m03 = average(mmData.m03)
-                            m10 = average(mmData.m10)
-                            m20 = average(mmData.m20)
-                            m30 = average(mmData.m30)
-                            m11 = average(mmData.m11)
-                            m12 = average(mmData.m12)
-                            m21 = average(mmData.m21)
-                            m22 = average(mmData.m22)
-                            m23 = average(mmData.m23)
-                            m31 = average(mmData.m31)
-                            m32 = average(mmData.m32)
-                            m33 = average(mmData.m33)
-                            m13 = average(mmData.m13)
+                            m00 = np.nanmean(mmData.m00)
+                            m01 = np.nanmean(mmData.m01)
+                            m02 = np.nanmean(mmData.m02)
+                            m03 = np.nanmean(mmData.m03)
+                            m10 = np.nanmean(mmData.m10)
+                            m20 = np.nanmean(mmData.m20)
+                            m30 = np.nanmean(mmData.m30)
+                            m11 = np.nanmean(mmData.m11)
+                            m12 = np.nanmean(mmData.m12)
+                            m21 = np.nanmean(mmData.m21)
+                            m22 = np.nanmean(mmData.m22)
+                            m23 = np.nanmean(mmData.m23)
+                            m31 = np.nanmean(mmData.m31)
+                            m32 = np.nanmean(mmData.m32)
+                            m33 = np.nanmean(mmData.m33)
+                            m13 = np.nanmean(mmData.m13)
                             
-                            # assign MM values
+                            # assign MM values to the dictionary
                             result1['M'][phi_d,theta_d,theta_h,wavelength,0,0] = m00
                             result1['M'][phi_d,theta_d,theta_h,wavelength,0,1] = m01
                             result1['M'][phi_d,theta_d,theta_h,wavelength,0,2] = m02
@@ -228,8 +243,10 @@ for phi_d in range(1,362):
             # theta_h = 90*math.pow(theta_h/91,2)
             # next_theta_h = 90*math.pow(theta_h/91,2)
 
-# write to file at the very end
+# write to pbsdf file at the very end
+# result1 is the dictionary that holds the data
 write_tensor("temp1.pbsdf", **result1)
+print('wrote to pbsdf file')
 # write_tensor(filename="test.pbsdf", M=data['M'], phi_d=data['phi_d'], theta_d=data['theta_d'], theta_h=data['theta_h'],wvls=data['wvls'])
 
 
