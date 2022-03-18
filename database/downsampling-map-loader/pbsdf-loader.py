@@ -30,6 +30,14 @@ def getBinaryFiles(binaryFilePath):
             binaryFilePathList.append(filePath)
     return binaryFilePathList
 
+def getBinaryFile(binaryFilePathList, aoc, aoi):
+    for binaryFilePath in binaryFilePathList:
+        # parse the AOC and AOI from the file name
+        pattern = str(aoi)+ '_' + str(aoc)
+        if binaryFilePath.__contains__(pattern):
+            return binaryFilePath
+    return ""
+
 # get list of all the CMMI files and their corresponding wavelengths
 def getCMMIFiles(cmmiFilePath):
     # create a dictionary to hold the cmmi files based on wavelength
@@ -79,6 +87,7 @@ cmmiFilePath = "/Users/carolinehumphreys/Desktop/Polarization Lab/2021/001"
 
 # get list of binary file paths
 binaryList = getBinaryFiles(binaryFilePath)
+
 # get the list of cmmi file paths
 cmmiList = getCMMIFiles(cmmiFilePath)
 
@@ -103,8 +112,17 @@ for wavelength in cmmiList:
     for filePath in wavelengthFiles:
         # get the Mueller Matrix data from the file
         mm = readCMMI(filePath)
+
+        # parse out the AOC and AOI out of the CMMI file name
+        aoi = filePath.rsplit("_", 7)[6]
+        aoc = filePath.rsplit("_", 7)[7]
+        aoc = aoc.rsplit(".",2)[0]
+
+        # lookup binary file based on the aoc and aoi
+        binaryFilePath = getBinaryFile(binaryList,aoc, aoi)
+
         # open the binary file here
-        table = openBinaryFile(binaryList[k])
+        table = openBinaryFile(binaryFilePath)
         print(k)
         # iterate k
         k = k + 1
@@ -112,8 +130,8 @@ for wavelength in cmmiList:
         for i in range(600):
             for j in range(600):
                 #access the angle coord. per pixel
-                theta_d_idx = table[i,j][0]
-                theta_h_idx = table[i,j][1]
+                theta_d_idx = table[i,j][1]
+                theta_h_idx = table[i,j][0]
                 phi_d_idx = table[i,j][2]
 
                 #Get the Mueller matrix at pixel (i,j)
