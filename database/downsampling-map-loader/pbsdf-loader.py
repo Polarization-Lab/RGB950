@@ -191,7 +191,6 @@ for wavelength in cmmiList:
                     print('issue')
                 
                 # normalize the mm data
-                #normMM = normalize(MM,0,1)
                 norm = np.linalg.norm(MM)
                 normMM = MM/norm
 
@@ -224,6 +223,7 @@ for i in range(361):
             for m in range(3):
                 if (index_tracker[i,j,k,m] == 0):
                     MM_total['M'][i,j,k,m,:,:]=0
+                    # putting the ideal depolarizer instead of 0
                     # MM_total['M'][i,j,k,m,0,0] = 1
                     # MM_total['M'][i,j,k,m,0,1] = 0
                     # MM_total['M'][i,j,k,m,0,2] = 0
